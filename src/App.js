@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React,{useState,useEffect} from 'react'
+import axios from 'axios'
+const  App = () => {
+ const [search,setSearch] = useState("");
+ const [setup,setSetup] = useState("");
+ const [joke,setJoke] = useState("");
+ const getData = async ()=> {
+  const options = {
+    method : 'GET',
+    }
+    const res = await fetch('https://v2.jokeapi.dev/joke/Any');
+  const data = await res.json()
+  setJoke(data.delivery);
+  setSetup(data.setup);
+  console.log(data);
+  }
+  
+ 
+ useEffect(()=>{
+  getData()
+ },[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <center>
+        <h4>Lets Laugh😂</h4>
+        {
+         
+          joke && 
+          <>
+            <h1>{setup}</h1>
+            <p>{joke}</p>
+          
+          </>
+        }
+      </center>
     </div>
   );
 }
